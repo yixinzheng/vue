@@ -16,14 +16,15 @@
     <div>{{flag ? 'yes' : 'no'}}</div>
     <!--属性-->
     <div v-bind:attr="'attr-' + id">{{msg}}</div>
+    <div><a :href="url">www.baidu.com</a></div>
     <!--class属性-->
-    <div v-bind:class={"fs-red":true}>{{msg}}</div>
+    <div v-bind:class={"fs-red":true,"fs-blue":false}>{{msg}}</div>
     <div v-bind:class=["fs-red","fs-blue","fs-yellow"]>{{msg}}</div>
-    <!--指令 v-if v-else v-else-if v-show -->
+    <!--指令 v-model v-if v-else v-else-if v-show -->
     <div v-if="num==1">1</div>
     <div v-else-if="num==2">2</div>
     <div v-else="num==3">3</div>
-    <!--修饰符 .prevent .stop-->
+    <!--修饰符 .prevent .stop  methods-->
     <div><a :href="url" v-on:click.prevent="doSth">www.baidu.com</a></div>
     <!--for循环-->
     <ul>
