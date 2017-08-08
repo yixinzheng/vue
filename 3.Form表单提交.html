@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>3.Form表单提交</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div id="app">
+    <form action="" @submit.prevent="formSubmit">
+        <div><input type="text" v-model="name"></div>
+        <div>
+            <select v-model="select">
+                <option value="1">111</option>
+                <option value="2">222</option>
+                <option value="3">333</option>
+            </select>
+        </div>
+        <span v-for="item in items">
+            <input type="checkbox" name="check" :value="item.value" v-model="checkedNames">{{item.value}}
+        </span>
+        <div>选择的值为：{{checkedNames}}</div>
+        <button type="submit">提交</button>
+    </form>
+</div>
+<script src="js/vue.min.js"></script>
+<script src="js/axios.min.js"></script>
+<script>
+    var vm = new Vue({
+        el: "#app",
+        data: {
+            name: "",
+            select: "",
+            items: [
+                {
+                    value: "苹果",
+                    checked: true
+                },
+                {
+                    value: "香蕉",
+                    checked: false
+                },
+                {
+                    value: "橘子",
+                    checked: false
+                }
+            ],
+            checkedNames: ['橘子'],
+            url: '	https://bird.ioliu.cn/joke'
+        },
+        methods: {
+            formSubmit: function () {
+                axios({
+                    method:'post',
+                    url:this.url,
+                    data:{
+                        name: this.name,
+                        select: this.select,
+                        checkedNames: this.checkedNames
+                    }
+                }).then(function (response) {
+                    console.log(response);
+                }).catch(function (error) {
+                        console.log(error);
+                    });
+            }
+        }
+    })
+</script>
+</body>
+</html>

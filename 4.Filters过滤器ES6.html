@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>4.Filters过滤器ES6</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div id="app">
+    <div>
+        <input type="text" v-model="key">
+    </div>
+    <div>
+        <input type="text" v-model="age">
+    </div>
+    <button @click="searchList">搜索</button>
+    <table>
+        <tr>
+            <th @click="sortByName(flag)">名称</th>
+            <th @click="sortByAge(flag)">年龄</th>
+        </tr>
+        <tr v-for="item in resultArr">
+            <td>{{item.name|uppercase}}</td>
+            <td>{{item.age}}</td>
+        </tr>
+    </table>
+</div>
+<script src="js/vue.min.js"></script>
+<script>
+    //过滤器
+    Vue.filter('uppercase', function(value) {
+        if (!value) { return ''}
+        value = value.toString();
+        return value.charAt(0).toUpperCase() + value.slice(1);
+    });
+    var vm = new Vue({
+        el: "#app",
+        data: {
+            key:'',
+            age:'',
+            Arr: [
+                {
+                    name: "zero",
+                    age: 25
+                },
+                {
+                    name: "meta",
+                    age: 18
+                },
+                {
+                    name: "alice",
+                    age: 8
+                },
+                {
+                    name: "jerry",
+                    age: 13
+                }
+            ],
+            resultArr:[],
+            flag:true
+        },
+        methods: {
+            //年龄排序
+            sortByAge: (flag) => {
+                this.flag = !this.flag;
+                return this.Arr.sort(function (a,b) {
+                    if(flag){
+                        return a.age-b.age;
+                    }else{
+                        return b.age-a.age;
+                    }
+                })
+            },
+            searchList:()=>{
+                //箭头函数为单行的形式时, 才会出现隐式的 return
+                const filterName = (data = [], name='') => data.filter(item => item.name.toLowerCase().indexOf(name.toLowerCase()) != -1);
+                const filterAge = (data = [], age = 0) => data.filter(item => item.age >= age);
+                const result = filterName(filterAge(this.Arr, this.age),this.key);//多个函数执行可以使用compose(func3，func2，func1)
+                console.log(result);
+                this.resultArr = result;
+            }
+        }
+    })
+</script>
+</body>
+</html>

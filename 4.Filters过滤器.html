@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>4.Filters过滤器</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div id="app">
+    <input type="text" v-model="key">
+    <table>
+        <tr>
+            <th @click="sortByName(flag)">名称</th>
+            <th @click="sortByAge(flag)">年龄</th>
+        </tr>
+        <tr v-for="item in searchArray">
+            <td>{{item.name|uppercase}}</td>
+            <td>{{item.age}}</td>
+        </tr>
+    </table>
+</div>
+<script src="js/vue.min.js"></script>
+<script>
+    //过滤器
+    Vue.filter('uppercase', function(value) {
+        if (!value) { return ''}
+        value = value.toString();
+        return value.charAt(0).toUpperCase() + value.slice(1);
+    });
+    var vm = new Vue({
+        el: "#app",
+        data: {
+            key:'',
+            Array: [
+                {
+                    name: "zero",
+                    age: 25
+                },
+                {
+                    name: "meta",
+                    age: 18
+                },
+                {
+                    name: "alice",
+                    age: 8
+                },
+                {
+                    name: "jerry",
+                    age: 13
+                }
+            ],
+            flag:true
+        },
+        methods: {
+            //年龄排序
+            sortByAge:function (flag) {
+                this.flag = !this.flag;
+                return this.Array.sort(function (a,b) {
+                    if(flag){
+                        return a.age-b.age;
+                    }else{
+                        return b.age-a.age;
+                    }
+                })
+            }
+        },
+        computed:{
+            //关键词搜索
+            searchArray:function () {
+                var key = this.key;
+                var Array = this.Array;
+                return Array.filter(function (item) {
+                    return item.name.toLowerCase().indexOf(key.toLowerCase()) != -1 && item.age>=18;
+                });
+            }
+        }
+    })
+</script>
+</body>
+</html>
