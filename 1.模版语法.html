@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>1.双向绑定</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="app">
+    <!--文本-->
+    <div>{{msg}}</div>
+    <!--js表达式-->
+    <div>{{5+5}}</div>
+    <div>{{msg.split('').reverse().join()}}</div>
+    <div>{{flag ? 'yes' : 'no'}}</div>
+    <!--属性-->
+    <div v-bind:attr="'attr-' + id">{{msg}}</div>
+    <!--class属性-->
+    <div v-bind:class={"fs-red":true}>{{msg}}</div>
+    <div v-bind:class=["fs-red","fs-blue","fs-yellow"]>{{msg}}</div>
+    <!--指令 v-if v-else v-else-if v-show -->
+    <div v-if="num==1">1</div>
+    <div v-else-if="num==2">2</div>
+    <div v-else="num==3">3</div>
+    <!--修饰符 .prevent .stop-->
+    <div><a :href="url" v-on:click.prevent="doSth">www.baidu.com</a></div>
+    <!--for循环-->
+    <ul>
+        <li v-for="site in sites">
+            {{ site.name }} || {{ site.value }}
+        </li>
+    </ul>
+    <!--computed计算属性-->
+    <div>{{reverseMsg}}</div>
+    <!--methods事件处理-->
+    <button @click="plus">增加 1</button>
+    <button @click="reduce">减少 1</button>
+    <div>{{counter}}</div>
+    <!--form表单-->
+    <form>
+        <input type="text">
+    </form>
+</div>
+
+<script src="https://cdn.bootcss.com/vue/2.4.2/vue.min.js"></script>
+<script src="https://cdn.bootcss.com/axios/0.16.2/axios.min.js"></script>
+<script>
+    var vm = new Vue({
+        el:"#app",
+        data:{
+            msg:'makeit',
+            flag:false,
+            id:'1',
+            num:3,
+            url:"http://www.baidu.com",
+            sites: [
+                { name: 'Baidu',value: '1' },
+                { name: 'Google',value: '2' },
+                { name: 'Taobao',value: '3' }
+            ],
+            counter:0
+        },
+        computed:{
+            reverseMsg:function () {
+//                console.log(this);
+                return this.msg.split('').reverse().join();
+            }
+        },
+        methods:{
+            doSth:function () {
+                alert(1);
+            },
+            plus:function () {
+                this.counter++;
+            },
+            reduce:function () {
+                if(this.counter>0){
+                    this.counter--;
+                }
+            }
+        }
+    })
+</script>
+</body>
+</html>

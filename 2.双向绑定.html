@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>1.双向绑定</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="app">
+    <input type="text" v-model="msg">
+    <div>{{msg}}</div>
+</div>
+
+<script src="https://cdn.bootcss.com/vue/2.4.2/vue.min.js"></script>
+<script>
+    var vm = new Vue({
+        el:"#app",
+        data:{
+            msg:''
+        }
+    })
+</script>
+</body>
+</html>

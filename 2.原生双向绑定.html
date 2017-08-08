@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>1.原生双向绑定</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<input type="text" id="data">
+<div id="result"></div>
+<!--参考链接：https://segmentfault.com/a/1190000006599500-->
+<script>
+    var obj ={};
+    Object.defineProperty(obj,"hello",{
+        get:function () {
+            console.log("get方法被调用了！");
+        },
+        set:function (val) {
+            console.log("set方法被调用了！参数是" + val);
+        }
+    });
+    obj.hello;
+    obj.hello = "aaaa";
+
+//    Object.defineProperty(obj,"hello",{
+//        set:function (newVal) {
+//            document.getElementById("data").value = newVal;
+//            document.getElementById("result").innerHTML = newVal;
+//        }
+//    });
+//
+//    document.addEventListener("keyup",function (e) {
+//        obj.hello = e.target.value;
+//    })
+</script>
+</body>
+</html>
