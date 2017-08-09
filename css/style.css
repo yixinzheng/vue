@@ -14,3 +14,7 @@ body{
 .fs-yellow{
     color: yellow;
 }
+
+.router-link-active{
+    color: red;
+}

@@ -20,6 +20,7 @@
     <!--class属性-->
     <div v-bind:class={"fs-red":true,"fs-blue":false}>{{msg}}</div>
     <div v-bind:class=["fs-red","fs-blue","fs-yellow"]>{{msg}}</div>
+    <div v-bind:style={color:'red',fontSize:'30px'}>{{msg}}</div>
     <!--指令 v-model v-if v-else v-else-if v-show -->
     <div v-if="num==1">1</div>
     <div v-else-if="num==2">2</div>
@@ -28,8 +29,8 @@
     <div><a :href="url" v-on:click.prevent="doSth">www.baidu.com</a></div>
     <!--for循环-->
     <ul>
-        <li v-for="site in sites">
-            {{ site.name }} || {{ site.value }}
+        <li v-for="(site,index) in sites">
+            {{ site.name }} || {{ site.value }} || {{index}}
         </li>
     </ul>
     <!--computed计算属性-->
