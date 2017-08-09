@@ -27,6 +27,7 @@
     });
     Object.defineProperty(obj,"hello",{
         set:function (newVal) {
+            document.getElementById("data").value = newVal;
             document.getElementById("result").innerHTML = newVal;
         }
     });
